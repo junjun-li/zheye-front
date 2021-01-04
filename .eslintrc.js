@@ -17,6 +17,6 @@ module.exports = {
     'no-unused-vars': 'off',
     'vue/no-unused-vars': 'off',
     // 必须使用引号字符串, 我不喜欢, 我喜欢用 模板字符串
-    'quotes': 'off'
+    quotes: 'off'
   }
 }
