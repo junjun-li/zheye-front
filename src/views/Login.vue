@@ -7,58 +7,60 @@
         class="layui-tab layui-tab-brief"
         lay-filter="user">
         <ul class="layui-tab-title">
-          <li class="layui-this">登入</li>
+          <li class="layui-this">
+            <router-link to="/login">登录</router-link>
+          </li>
           <li>
-            <router-link :to="{name: 'reg'}">注册</router-link>
+            <router-link to="/reg">注册</router-link>
           </li>
         </ul>
         <div
           id="LAY_ucm"
           class="layui-form layui-tab-content"
           style="padding: 20px 0;">
+          <!-- // eslint-disable-next-line vue/no-unused-vars -->
           <validation-observer
             ref="observer"
-            v-slot="{ validate }">
+            v-slot="{validate}">
             <div class="layui-tab-item layui-show">
               <div class="layui-form layui-form-pane">
                 <form method="post">
-                  <div class="layui-form-item">
-                    <label
-                      class="layui-form-label"
-                      for="L_email">用户名
-                    </label>
-                    <validation-provider
-                      v-slot="{errors}"
-                      name="email"
-                      rules="required|email">
+                  <validation-provider
+                    v-slot="v"
+                    name="email"
+                    rules="required|email">
+                    <div class="layui-form-item">
+                      <label
+                        class="layui-form-label"
+                        for="username">邮箱
+                      </label>
                       <div class="layui-input-inline">
                         <input
-                          id="L_email"
+                          id="username"
                           v-model="username"
                           autocomplete="off"
                           class="layui-input"
                           name="username"
-                          placeholder="请输入用户名"
+                          placeholder="请输入邮箱"
                           type="text"/>
                       </div>
-                      <div class="layui-form-mid">
-                        <span style="color: #c00;">{{ errors[0] }}</span>
-                      </div>
-                    </validation-provider>
-                  </div>
-                  <div class="layui-form-item">
-                    <label
-                      class="layui-form-label"
-                      for="L_pass">
-                      密码
-                    </label>
-                    <validation-provider
-                      v-slot="{errors}"
-                      name="password"
-                      rules="required|min:6">
+                    </div>
+                    <div class="error-box">
+                      <span>{{ v.errors[0] }}</span>
+                    </div>
+                  </validation-provider>
+                  <validation-provider
+                    v-slot="v"
+                    name="password"
+                    rules="required|min:6">
+                    <div class="layui-form-item">
+                      <label
+                        class="layui-form-label"
+                        for="password">密码
+                      </label>
                       <div class="layui-input-inline">
                         <input
-                          id="L_pass"
+                          id="password"
                           v-model="password"
                           autocomplete="off"
                           class="layui-input"
@@ -66,50 +68,46 @@
                           placeholder="请输入密码"
                           type="password"/>
                       </div>
-                      <div class="layui-form-mid">
-                        <span style="color: #c00;">{{ errors[0] }}</span>
-                      </div>
-                    </validation-provider>
-                  </div>
-                  <div class="layui-form-item">
-                    <validation-provider
-                      ref="codefield"
-                      v-slot="{errors}"
-                      name="code"
-                      rules="required|length:4">
-                      <div class="layui-row" style="display: flex;align-items: center">
+                    </div>
+                    <div class="error-box">
+                      <span>{{ v.errors[0] }}</span>
+                    </div>
+                  </validation-provider>
+                  <validation-provider
+                    v-slot="v"
+                    name="code"
+                    rules="required|length:4">
+                    <div class="layui-form-item">
+                      <div class="layui-row">
                         <label
                           class="layui-form-label"
-                          for="L_code">验证码
+                          for="code">验证码
                         </label>
                         <div class="layui-input-inline">
                           <input
-                            id="L_code"
+                            id="code"
                             v-model="code"
                             autocomplete="off"
                             class="layui-input"
                             name="code"
                             placeholder="请输入验证码"
-                            type="text"
-                          />
+                            type="text"/>
                         </div>
-                        <span
-                          style="color: #c00;"
-                          @click="_getCaptcha()"
-                          v-html="svg"></span>
+                        <div v-html="svg" @click="_getCaptcha()" />
                       </div>
-                      <div class="layui-form-mid">
-                        <span style="color: #c00;">{{ errors[0] }}</span>
-                      </div>
-                    </validation-provider>
-                  </div>
+                    </div>
+                    <div class="error-box">
+                      <span>{{ v.errors[0] }}</span>
+                    </div>
+                  </validation-provider>
                   <div class="layui-form-item">
                     <button
                       class="layui-btn"
-                      type="button">
-                      立即登录
+                      style="margin-right: 20px;"
+                      type="button"
+                      @click="validate().then(submitLogin)">立即登录
                     </button>
-                    <span style="padding-left:20px;">
+                    <span>
                       <router-link :to="{name: 'forget'}">忘记密码？</router-link>
                     </span>
                   </div>
@@ -118,13 +116,13 @@
                     <a
                       class="iconfont icon-qq"
                       href
-                      title="QQ登入"
-                    ></a>
+                      onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})"
+                      title="QQ登入"></a>
                     <a
                       class="iconfont icon-weibo"
                       href
-                      title="微博登入"
-                    ></a>
+                      onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})"
+                      title="微博登入"></a>
                   </div>
                 </form>
               </div>
@@ -137,11 +135,12 @@
 </template>
 
 <script>
+import { getCaptcha } from '@/api/index'
 import {
-  ValidationProvider,
-  ValidationObserver
+  ValidationObserver,
+  ValidationProvider
 } from 'vee-validate'
-import { getCaptcha } from '@/api'
+import { v4 as uuid } from 'uuid'
 
 export default {
   name: 'login',
@@ -151,25 +150,59 @@ export default {
   },
   data () {
     return {
-      username: '',
-      password: '',
+      username: '11776174@qq.com',
+      password: '123456',
       code: '',
-      svg: ''
+      svg: '',
+      sid: ''
     }
   },
-  created () {
+  mounted () {
+    // window.vue = this
+    // let sid = ''
+    // if (localStorage.getItem('sid')) {
+    //   sid = localStorage.getItem('sid')
+    // } else {
+    //   sid = uuid()
+    //   localStorage.setItem('sid', sid)
+    // }
+    // this.sid = sid
+    // this.$store.commit('setSid', sid)
     this._getCaptcha()
   },
-  mounted () {
-
-  },
   methods: {
-    async _getCaptcha () {
-      const res = await getCaptcha()
-      this.svg = res.data.data
-      console.log(res)
+    _getCaptcha () {
+      const sid = this.sid
+      this.code = ''
+      getCaptcha(sid).then(res => {
+        if (res.code === 0) {
+          this.svg = res.data.data
+          this.code = res.data.text
+        }
+      })
     },
-    async submit () {
+    async submitLogin () {
+      // const isValid = await this.$refs.observer.validate()
+      // if (!isValid) {
+      //   return
+      // }
+      // login({
+      //   username: this.username,
+      //   password: this.password,
+      //   code: this.code,
+      //   sid: this.sid
+      // }).then(res => {
+      //   if (res.code === 1) {
+      //     this.$alert(res.msg, this._getCode)
+      //   } else {
+      //     // 存储用户的登录名
+      //     res.data.username = this.username
+      //     this.$store.commit('setUserInfo', res.data)
+      //     this.$store.commit('setToken', res.data.token)
+      //     this.$store.commit('setIsLogin', true)
+      //     this.$router.push('index')
+      //   }
+      // })
     }
   }
 }
@@ -178,5 +211,18 @@ export default {
 <style
   lang="scss"
   scoped>
-// 公用样式可以放在App.vue中
+.svg {
+  // position: relative;
+  // top: -4px;
+  height: 38px;
+}
+.layui-form-item {
+  margin-bottom: 0;
+}
+.error-box {
+  height: 20px;
+  span {
+    color: #c00;
+  }
+}
 </style>
