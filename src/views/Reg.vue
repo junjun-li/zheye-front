@@ -196,14 +196,16 @@ export default {
       svg: ''
     }
   },
-  computed: {},
+  computed: {
+    ...mapState(['sid'])
+  },
   created () {
-    this.regForm.sid = this.sid
+    // this.regForm.sid = this.sid
     this._getCaptcha()
   },
   methods: {
     async _getCaptcha () {
-      getCaptcha().then(res => {
+      getCaptcha(this.sid).then(res => {
         if (res.code === 0) {
           this.svg = res.data.data
         }

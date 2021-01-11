@@ -17,7 +17,15 @@ export default new Router({
     {
       path: '/reg',
       name: 'reg',
-      component: Reg
+      component: Reg,
+      // login页面才能拿到sid 防止没有sid
+      beforeEnter: (to, from, next) => {
+        if (from.name === 'login') {
+          next()
+        } else {
+          next('/login')
+        }
+      }
     },
     {
       path: '/forget',

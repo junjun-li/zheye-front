@@ -78,7 +78,9 @@
                     name="code"
                     rules="required|length:4">
                     <div class="layui-form-item">
-                      <div class="layui-row">
+                      <div
+                        class="layui-row"
+                        style="display: flex">
                         <label
                           class="layui-form-label"
                           for="code">验证码
@@ -93,7 +95,10 @@
                             placeholder="请输入验证码"
                             type="text"/>
                         </div>
-                        <div v-html="svg" @click="_getCaptcha()" />
+                        <div
+                          style="cursor: pointer;"
+                          @click="_getCaptcha()"
+                          v-html="svg"/>
                       </div>
                     </div>
                     <div class="error-box">
@@ -135,7 +140,7 @@
 </template>
 
 <script>
-import { getCaptcha } from '@/api/index'
+import { getCaptcha, login } from '@/api'
 import {
   ValidationObserver,
   ValidationProvider
@@ -158,16 +163,15 @@ export default {
     }
   },
   mounted () {
-    // window.vue = this
-    // let sid = ''
-    // if (localStorage.getItem('sid')) {
-    //   sid = localStorage.getItem('sid')
-    // } else {
-    //   sid = uuid()
-    //   localStorage.setItem('sid', sid)
-    // }
-    // this.sid = sid
-    // this.$store.commit('setSid', sid)
+    let sid = ''
+    if (localStorage.getItem('sid')) {
+      sid = localStorage.getItem('sid')
+    } else {
+      sid = uuid()
+      localStorage.setItem('sid', sid)
+    }
+    this.sid = sid
+    this.$store.commit('setSid', sid)
     this._getCaptcha()
   },
   methods: {
@@ -182,27 +186,27 @@ export default {
       })
     },
     async submitLogin () {
-      // const isValid = await this.$refs.observer.validate()
-      // if (!isValid) {
-      //   return
-      // }
-      // login({
-      //   username: this.username,
-      //   password: this.password,
-      //   code: this.code,
-      //   sid: this.sid
-      // }).then(res => {
-      //   if (res.code === 1) {
-      //     this.$alert(res.msg, this._getCode)
-      //   } else {
-      //     // 存储用户的登录名
-      //     res.data.username = this.username
-      //     this.$store.commit('setUserInfo', res.data)
-      //     this.$store.commit('setToken', res.data.token)
-      //     this.$store.commit('setIsLogin', true)
-      //     this.$router.push('index')
-      //   }
-      // })
+      const isValid = await this.$refs.observer.validate()
+      if (!isValid) {
+        return
+      }
+      login({
+        username: this.username,
+        password: this.password,
+        code: this.code,
+        sid: this.sid
+      }).then(res => {
+        if (res.code === 1) {
+          this.$alert(res.msg, this._getCaptcha)
+        } else {
+          // 存储用户的登录名
+          // res.data.username = this.username
+          // this.$store.commit('setUserInfo', res.data)
+          // this.$store.commit('setToken', res.data.token)
+          // this.$store.commit('setIsLogin', true)
+          // this.$router.push('index')
+        }
+      })
     }
   }
 }
