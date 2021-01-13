@@ -11,8 +11,10 @@ WORKDIR /app
 COPY . .
 
 # 装包 使用 yarn 或者 npm 装包
-#RUN npm install cnpm -g --no-progress --registry=https://registry.npm.taobao.org
-RUN yarn install --registry=https://registry.npm.taobao.org
+RUN npm install cnpm -g --no-progress --registry=https://registry.npm.taobao.org
+#RUN yarn install --registry=https://registry.npm.taobao.org
+
+RUN cnpm install --no-progress
 
 # 构建我们的项目
 RUN npm run build
