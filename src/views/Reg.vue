@@ -33,8 +33,8 @@
                       </label>
                       <div class="layui-input-inline">
                         <input
-                          v-model="regForm.username"
                           id="username"
+                          v-model="regForm.username"
                           class="layui-input"
                           name="username"
                           placeholder="将会成为您唯一的登入名"
@@ -104,8 +104,8 @@
                         <input
                           id="rePassword"
                           v-model="regForm.rePassword"
-                          name="rePassword"
                           class="layui-input"
+                          name="rePassword"
                           placeholder="再次输入密码"
                           type="password"/>
                       </div>
@@ -131,7 +131,9 @@
                           placeholder="请输入验证码"
                           type="text"/>
                       </div>
-                      <div v-html="svg" @click="_getCaptcha()" />
+                      <div
+                        @click="_getCaptcha()"
+                        v-html="svg"/>
                     </div>
                     <div class="error-box">
                       <span>{{ v.errors[0] }}</span>
@@ -173,8 +175,9 @@ import {
   ValidationObserver
 } from 'vee-validate'
 import {
-  getCaptcha
-} from '@/api/index'
+  getCaptcha,
+  reg
+} from '@/api'
 import { mapState } from 'vuex'
 
 export default {
@@ -215,6 +218,12 @@ export default {
       const isValid = await this.$refs.observer.validate()
       if (!isValid) {
         return
+      }
+      const res = await reg(this.regForm)
+      if (res.code === 1) {
+        this.$alert(res.msg)
+      } else {
+        this.$alert(res.msg)
       }
     }
   }

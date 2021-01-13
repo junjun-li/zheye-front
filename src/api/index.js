@@ -6,15 +6,9 @@ export const getCaptcha = (sid) => axios.get(`/getCaptcha`, {
   }
 })
 
-// export const forget = ({ username }) => axios.post(`/forget`, {
-//   username
-// })
-
-export function forget (username) {
-  return axios.post(`/forget`, {
-    username
-  })
-}
+export const forget = ({ username }) => axios.post(`/forget`, {
+  username
+})
 
 export const login = ({
   username,
@@ -23,6 +17,20 @@ export const login = ({
   sid
 }) => axios.post(`/login`, {
   username,
+  password,
+  code,
+  sid
+})
+
+export const reg = ({
+  username,
+  name,
+  password,
+  code,
+  sid
+}) => axios.post(`/reg`, {
+  username,
+  name,
   password,
   code,
   sid
