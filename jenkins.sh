@@ -8,10 +8,9 @@ docker build --no-cache -t ${imageName}:${tag} .
 checkDocker() {
   RUNNING=$(docker inspect --format="{{ .State.Running }}" ${containerName} 2>/dev/null)
   if [ -z $RUNNING ]; then
-    echo "${containerName} oes not exist."
+    echo "${containerName} does not exist."
     return 1
   fi
-
   # 如果 RUNNING 的状态是 false, 说明 {containerName} 没有被运行
   if [ "$RUNNING" == "false" ]; then
     matching=$(docker ps -a --filter="name=${containerName}" -q | xargs)
