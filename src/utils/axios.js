@@ -1,25 +1,40 @@
 import axios from 'axios'
 
+const CancelToken = axios.CancelToken
+
 class HTTPRequest {
   constructor (baseURL) {
     this.baseURL = baseURL
+    this.pending = {}
   }
 
   getInsideConfig () {
-    const options = {
+    return {
       baseURL: this.baseURL,
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
       timeout: 10000
     }
-    return options
+  }
+
+  removePending (key, isRequest = false) {
+    if (this.pending[key] && isRequest) {
+      this.pending[key]('取消重复请求')
+    }
+    delete this.pending[key]
   }
 
   interceptors (instance) {
     // 添加请求拦截器
     instance.interceptors.request.use((config) => {
       // 在发送请求之前做些什么
+      const key = config.url + '&' + config.method
+      this.removePending(key, true)
+      config.cancelToken = new CancelToken((c) => {
+        // executor 函数接收一个 cancel 函数作为参数
+        this.pending[key] = c
+      })
       return config
     }, (err) => {
       // 对请求错误做些什么
@@ -29,6 +44,8 @@ class HTTPRequest {
     // 添加响应拦截器
     instance.interceptors.response.use((res) => {
       // 对响应数据做点什么
+      const key = res.config.url + '&' + res.config.method
+      this.removePending(key)
       if (res.status === 200) {
         return Promise.resolve(res.data)
       } else {

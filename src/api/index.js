@@ -1,4 +1,5 @@
 import axios from '@/utils/request'
+import qs from 'qs'
 
 export const getCaptcha = (sid) => axios.get(`/getCaptcha`, {
   params: {
@@ -36,4 +37,17 @@ export const reg = ({
   sid
 })
 
-console.log(axios)
+/**
+ * 读取文章列表
+ * @param {Object} options 读取文章列表接口参数
+ */
+export const getList = (options) => axios.get('/public/list?' + qs.stringify(options))
+
+// 温馨提醒
+export const getTips = () => axios.get('/public/tips')
+
+// 本周热议
+export const getTop = () => axios.get('/public/topWeek')
+
+// 友情链接
+export const getLinks = () => axios.get('/public/links')

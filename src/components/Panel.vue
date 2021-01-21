@@ -2,13 +2,22 @@
   <div class="fly-panel fly-column">
     <div class="layui-container">
       <ul class="layui-clear">
-        <router-link tag="li" to="/" class="layui-hide-xs">
+        <router-link
+          class="layui-hide-xs"
+          tag="li"
+          to="/">
           <a href="/">首页</a>
         </router-link>
-        <router-link v-for="(item,index) in lists" :key="'panel'+ index" tag="li" :to="item.path">
+        <router-link
+          v-for="(item,index) in lists"
+          :key="'panel'+ index"
+          :to="item.path"
+          tag="li">
           <a href="jie/index.html">
-            {{item.name}}
-            <span class="layui-badge-dot" v-if="item.isNew"></span>
+            {{ item.name }}
+            <span
+              v-if="item.isNew"
+              class="layui-badge-dot"></span>
           </a>
         </router-link>
         <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
@@ -16,25 +25,39 @@
         </li>
 
         <!-- 用户登入后显示 -->
-        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
-          <a href="user/index.html">我发表的贴</a>
-        </li>
-        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
-          <a href="user/index.html#collection">我收藏的贴</a>
-        </li>
+        <!--<li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">-->
+        <!--  <a href="user/index.html">我发表的贴</a>-->
+        <!--</li>-->
+        <!--<li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">-->
+        <!--  <a href="user/index.html#collection">我收藏的贴</a>-->
+        <!--</li>-->
+        <template v-if="isLogin">
+          <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
+            <a href="user/index.html">我发表的贴</a>
+          </li>
+          <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
+            <a href="user/index.html#collection">我收藏的贴</a>
+          </li>
+        </template>
       </ul>
 
       <div class="fly-column-right layui-hide-xs">
         <span class="fly-search">
           <i class="layui-icon"></i>
         </span>
-        <a href="jie/add.html" class="layui-btn">发表新帖</a>
+        <a
+          class="layui-btn"
+          href="jie/add.html">发表新帖
+        </a>
       </div>
       <div
         class="layui-hide-sm layui-show-xs-block"
         style="margin-top: -10px; padding-bottom: 10px; text-align: center;"
       >
-        <a href="jie/add.html" class="layui-btn">发表新帖</a>
+        <a
+          class="layui-btn"
+          href="jie/add.html">发表新帖
+        </a>
       </div>
     </div>
   </div>
@@ -76,11 +99,14 @@ export default {
           path: '/index/logs',
           isNew: false
         }
-      ]
+      ],
+      isLogin: this.$store.state.isLogin
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped>
 </style>
