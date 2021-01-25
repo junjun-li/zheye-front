@@ -30,11 +30,13 @@ class HTTPRequest {
     instance.interceptors.request.use((config) => {
       // 在发送请求之前做些什么
       const key = config.url + '&' + config.method
+      const token = localStorage.getItem('token')
       this.removePending(key, true)
       config.cancelToken = new CancelToken((c) => {
         // executor 函数接收一个 cancel 函数作为参数
         this.pending[key] = c
       })
+      config.headers.Authorization = 'Bearer ' + token
       return config
     }, (err) => {
       // 对请求错误做些什么

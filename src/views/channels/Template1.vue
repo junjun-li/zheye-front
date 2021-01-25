@@ -5,7 +5,7 @@
         <imooc-list></imooc-list>
       </div>
       <div class="layui-col-md4">
-        <imooc-hotlist></imooc-hotlist>
+        <imooc-hotList></imooc-hotList>
         <imooc-ads></imooc-ads>
         <imooc-links></imooc-links>
       </div>
@@ -21,7 +21,7 @@ import List from '@/components/contents/List'
 export default {
   name: 'template1',
   components: {
-    'imooc-hotlist': HotList,
+    'imooc-hotList': HotList,
     'imooc-ads': Ads,
     'imooc-links': Links,
     'imooc-list': List

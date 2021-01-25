@@ -41,13 +41,13 @@ export const reg = ({
  * 读取文章列表
  * @param {Object} options 读取文章列表接口参数
  */
-export const getList = (options) => axios.get('/public/list?' + qs.stringify(options))
+export const getPostList = (options) => axios.get('/getPostList?' + qs.stringify(options))
 
 // 温馨提醒
-export const getTips = () => axios.get('/public/tips')
+export const getTips = () => axios.get('/getTips')
 
 // 本周热议
-export const getTop = () => axios.get('/public/topWeek')
+export const getTopWeek = () => axios.get('/getTopWeek')
 
 // 友情链接
-export const getLinks = () => axios.get('/public/links')
+export const getLinks = () => axios.get('/getLinks')

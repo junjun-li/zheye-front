@@ -1,5 +1,6 @@
 module.exports = {
   devServer: {
+    port: 19265,
     // 自动开启浏览器
     open: true,
     progress: true
@@ -12,5 +13,6 @@ module.exports = {
     //     // },
     //   },
     // },
+    // proxy: 'http://localhost:3000'
   }
 }

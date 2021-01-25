@@ -2,64 +2,10 @@
   <div>
     <dl class="fly-panel fly-list-one">
       <dt class="fly-panel-title">本周热议</dt>
-      <dd>
-        <a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
+      <dd v-for="(item,index) in topWeekList" :key="index">
+        <a href="jie/detail.html">{{item.title}}</a>
         <span>
-          <i class="iconfont icon-pinglun1"></i> 16
-        </span>
-      </dd>
-      <dd>
-        <a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
-        <span>
-          <i class="iconfont icon-pinglun1"></i> 16
-        </span>
-      </dd>
-      <dd>
-        <a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
-        <span>
-          <i class="iconfont icon-pinglun1"></i> 16
-        </span>
-      </dd>
-      <dd>
-        <a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
-        <span>
-          <i class="iconfont icon-pinglun1"></i> 16
-        </span>
-      </dd>
-      <dd>
-        <a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
-        <span>
-          <i class="iconfont icon-pinglun1"></i> 16
-        </span>
-      </dd>
-      <dd>
-        <a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
-        <span>
-          <i class="iconfont icon-pinglun1"></i> 16
-        </span>
-      </dd>
-      <dd>
-        <a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
-        <span>
-          <i class="iconfont icon-pinglun1"></i> 16
-        </span>
-      </dd>
-      <dd>
-        <a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
-        <span>
-          <i class="iconfont icon-pinglun1"></i> 16
-        </span>
-      </dd>
-      <dd>
-        <a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
-        <span>
-          <i class="iconfont icon-pinglun1"></i> 16
-        </span>
-      </dd>
-      <dd>
-        <a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
-        <span>
-          <i class="iconfont icon-pinglun1"></i> 16
+          <i class="iconfont icon-pinglun1"></i> {{item.answer}}
         </span>
       </dd>
 
@@ -72,10 +18,27 @@
 </template>
 
 <script>
+import { getTopWeek } from '@/api'
 export default {
-  name: 'hotlist'
+  name: 'hotList',
+  data () {
+    return {
+      topWeekList: []
+    }
+  },
+  mounted () {
+    this._getTopWeek()
+  },
+  methods: {
+    async _getTopWeek () {
+      const res = await getTopWeek()
+      this.topWeekList = res.data
+    }
+  }
+
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss"
+       scoped>
 </style>

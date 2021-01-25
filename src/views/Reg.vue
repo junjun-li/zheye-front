@@ -203,7 +203,7 @@ export default {
     ...mapState(['sid'])
   },
   created () {
-    // this.regForm.sid = this.sid
+    this.regForm.sid = this.sid
     this._getCaptcha()
   },
   methods: {

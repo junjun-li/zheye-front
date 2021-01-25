@@ -22,7 +22,7 @@ export default {
   },
   mounted () {
     getTips().then((res) => {
-      if (res.code === 200) {
+      if (res.code === 0) {
         this.lists = res.data
       }
     })

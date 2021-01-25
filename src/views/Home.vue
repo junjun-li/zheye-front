@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <imooc-panel></imooc-panel>

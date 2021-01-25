@@ -200,11 +200,10 @@ export default {
           this.$alert(res.msg, this._getCaptcha)
         } else {
           // 存储用户的登录名
-          // res.data.username = this.username
-          // this.$store.commit('setUserInfo', res.data)
-          // this.$store.commit('setToken', res.data.token)
-          // this.$store.commit('setIsLogin', true)
-          // this.$router.push('index')
+          this.$store.commit('setUserInfo', res.data)
+          this.$store.commit('setToken', res.data.token)
+          this.$store.commit('setIsLogin', true)
+          this.$router.push('/')
         }
       })
     }
