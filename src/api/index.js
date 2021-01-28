@@ -41,7 +41,8 @@ export const reg = ({
  * 读取文章列表
  * @param {Object} options 读取文章列表接口参数
  */
-export const getPostList = (options) => axios.get('/getPostList?' + qs.stringify(options))
+export const getPostList = (options) => axios.get(
+  '/getPostList?' + qs.stringify(options))
 
 // 温馨提醒
 export const getTips = () => axios.get('/getTips')
@@ -51,3 +52,28 @@ export const getTopWeek = () => axios.get('/getTopWeek')
 
 // 友情链接
 export const getLinks = () => axios.get('/getLinks')
+
+// 用户签到
+export const userSign = () => axios.get('/user/sign')
+
+// 更新用户基本资料
+export const updateUserInfo = (data) => axios.post('/user/basic', data)
+
+// 发送更新用户名邮件
+export const sendUpdateEmail = (updateUserName) => axios.get(
+  '/user/sendUpdateEmail', {
+    params: {
+      updateUserName
+    }
+  })
+
+// 确认更新用户名
+export const updateUsername = (data) => axios.get('/user/updateUsername', {
+  params: {
+    key: data.key,
+    username: data.username
+  }
+})
+
+// 上传图片
+export const uploadImg = (data) => axios.post('/content/uploadImg', data)

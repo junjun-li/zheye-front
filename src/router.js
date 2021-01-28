@@ -26,6 +26,8 @@ const Posts = () => import(/* webpackChunkName: 'user-post' */ '@/components/use
 const Msg = () => import(/* webpackChunkName: 'user-msg' */ '@/components/user/Msg.vue')
 const Others = () => import(/* webpackChunkName: 'othres' */ '@/components/user/Others.vue')
 const Settings = () => import(/* webpackChunkName: 'settings' */ '@/components/user/Settings.vue')
+const NoFound = () => import(/* webpackChunkName: 'notfound' */ '@/views/NotFound.vue')
+const Confirm = () => import(/* webpackChunkName: 'confirm' */ '@/views/Confirm.vue')
 
 const router = new Router({
   routes: [
@@ -141,6 +143,18 @@ const router = new Router({
         }
       ]
       // beforeEnter:
+    },
+    {
+      path: '/confirm',
+      component: Confirm
+    },
+    {
+      path: '/404',
+      component: NoFound
+    },
+    {
+      path: '*',
+      redirect: '/404'
     }
   ]
 })

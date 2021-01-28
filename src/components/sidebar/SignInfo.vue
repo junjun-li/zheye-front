@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'sign-info',
   props: {
@@ -69,6 +71,8 @@ export default {
       default: false,
       type: Boolean
     }
+  },
+  created () {
   },
   methods: {
     close () {

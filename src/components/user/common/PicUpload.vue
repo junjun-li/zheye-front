@@ -6,10 +6,8 @@
         <p>建议尺寸168*168，支持jpg、png、gif，最大不能超过50KB</p>
         <label
           class="layui-btn upload-img"
-          for="uploadImg"
-          type="button">
+          for="uploadImg">
           <i class="layui-icon">&#xe67c;</i>
-          <!--          -->
           <input
             v-show="false"
             id="uploadImg"
@@ -37,10 +35,11 @@ export default {
   methods: {
     async _uploadImgChange (e) {
       const file = e.target.files
-      const formData = new FormData()
-      formData.append('file', file[0])
-      const res = await uploadImg(formData)
-      console.log(res)
+      if (file.length > 0) {
+        const formData = new FormData()
+        formData.append('file', file[0])
+        const res = await uploadImg(formData)
+      }
     }
   }
 

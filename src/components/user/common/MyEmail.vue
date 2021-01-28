@@ -63,7 +63,7 @@ import {
   ValidationObserver,
   ValidationProvider
 } from 'vee-validate'
-// import { sendUpdateEmail } from '@/api'
+import { sendUpdateEmail } from '@/api'
 export default {
   name: 'MyEmail',
   data () {
@@ -77,14 +77,16 @@ export default {
     ValidationObserver
   },
   mounted () {
-    // this.username = this.$store.state.userInfo.username
+    this.username = this.$store.state.userInfo.username
   },
   methods: {
     async submitUpdate () {
-      // let res = await sendUpdateEmail(this.updateUserName)
-      // if (res.code === 0) {
-      //   this.$pop('', '邮件发送成功,请登录原邮箱查看')
-      // }
+      const res = await sendUpdateEmail(this.updateUserName)
+      if (res.code === 0) {
+        this.$pop('', '邮件发送成功,请登录原邮箱查看')
+      } else {
+        this.$pop('', res.msg)
+      }
     }
   }
 

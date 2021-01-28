@@ -10,10 +10,11 @@
         <div class="layui-form-item">
           <label
             class="layui-form-label"
-            for="L_username">昵称
+            for="name">昵称
           </label>
           <div class="layui-input-inline">
             <input
+              id="name"
               v-model="name"
               class="layui-input"
               name="name"
@@ -34,10 +35,11 @@
         <div class="layui-form-item">
           <label
             class="layui-form-label"
-            for="L_city">城市
+            for="location">城市
           </label>
           <div class="layui-input-inline">
             <input
+              id="location"
               v-model="location"
               class="layui-input"
               type="text"/>
@@ -51,12 +53,14 @@
         v-slot="v"
         name="gender"
         rules="required">
-        <div class="layui-form-item">
-          <label
-            class="layui-form-label"
-            for="L_city">性别
+        <div
+          class="layui-form-item"
+          style="display: flex;align-items: center">
+          <label class="layui-form-label">性别
           </label>
-          <div class="layui-input-inline gray mt1 ml1">
+          <div
+            class="layui-input-inline"
+            style="margin-left: 10px;">
             <label
               class="mr1"
               for="gender1">
@@ -94,11 +98,12 @@
       <div class="layui-form-item layui-form-text">
         <label
           class="layui-form-label"
-          for="L_sign">签名
+          for="signature">签名
         </label>
         <div class="layui-input-block">
           <textarea
-            v-model="regmark"
+            id="signature"
+            v-model="signature"
             class="layui-textarea"
             placeholder="随便写些什么刷下存在感"
             style="height: 80px;">
@@ -122,7 +127,7 @@ import {
   ValidationObserver,
   ValidationProvider
 } from 'vee-validate'
-// import { updateUserInfo } from '@/api'
+import { updateUserInfo } from '@/api'
 
 export default {
   name: 'myInfo',
@@ -136,7 +141,7 @@ export default {
       name: '',
       location: '',
       gender: '',
-      regmark: ''
+      signature: ''
     }
   },
   mounted () {
@@ -145,38 +150,38 @@ export default {
       name,
       location,
       gender,
-      regmark
+      signature
     } = this.$store.state.userInfo
     this.username = username || ''
     this.name = name || ''
     this.location = location || ''
     this.gender = gender || ''
-    this.regmark = regmark || ''
+    this.signature = signature || ''
   },
   methods: {
     async submitUpdate () {
-      // const isValid = await this.$refs.observer.validate()
-      // if (!isValid) {
-      //   return
-      // }
-      // const res = await updateUserInfo({
-      //   username: this.username,
-      //   name: this.name,
-      //   location: this.location,
-      //   gender: this.gender,
-      //   regmark: this.regmark
-      // })
-      // if (res.code === 0) {
-      //   this.$pop('', '修改成功')
-      //   this.$store.commit('setUserInfo', {
-      //     ...this.$store.state.userInfo,
-      //     username: this.username,
-      //     name: this.name,
-      //     location: this.location,
-      //     gender: this.gender,
-      //     regmark: this.regmark
-      //   })
-      // }
+      const isValid = await this.$refs.observer.validate()
+      if (!isValid) {
+        return
+      }
+      const res = await updateUserInfo({
+        username: this.username,
+        name: this.name,
+        location: this.location,
+        gender: this.gender,
+        signature: this.signature
+      })
+      if (res.code === 0) {
+        this.$pop('', '修改成功')
+        this.$store.commit('setUserInfo', {
+          ...this.$store.state.userInfo,
+          username: this.username,
+          name: this.name,
+          location: this.location,
+          gender: this.gender,
+          signature: this.signature
+        })
+      }
     }
   }
 }

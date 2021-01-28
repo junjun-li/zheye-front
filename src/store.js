@@ -33,6 +33,9 @@ export default new Vuex.Store({
   },
   actions: {
   },
+  getters: {
+    count: state => state.userInfo && state.userInfo.count ? state.userInfo.count : 0
+  },
   modules: {
   },
   plugins: process.env.NODE_ENV !== 'production' ? [createLogger()] : []
