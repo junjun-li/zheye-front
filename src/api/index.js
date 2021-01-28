@@ -76,4 +76,4 @@ export const updateUsername = (data) => axios.get('/user/updateUsername', {
 })
 
 // 上传图片
-export const uploadImg = (data) => axios.post('/content/uploadImg', data)
+export const uploadImg = (data) => axios.post('/uploadImg', data)

@@ -77,7 +77,7 @@
                 v-show="userInfo.isVip !== '0'"
                 class="layui-badge fly-badge-vip layui-hide-xs">VIP{{ userInfo.isVip }}
               </i>
-              <img src="@/assets/img/avatar.jpeg"/>
+              <img :src="pic"/>
               <!--<img :src="`/img/${userInfo.pic}`"/>-->
               <!--http://localhost:3000/img/1587000589108.png-->
             </a>
@@ -125,6 +125,7 @@
 
 <script>
 import store from '@/store'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Header',
@@ -132,7 +133,27 @@ export default {
     return {
       isHover: false,
       hoverCtrl: {}
+      // @/assets/img/avatar.jpeg
+      // pic: (this.$store.state.userInfo && this.$store.state.userInfo.pic)
+      //   ? baseUrl + this.$store.state.userInfo.pic
+      //   : '/img/bear-200-200.jpg'
     }
+  },
+  computed: {
+    isShow () {
+      return this.$store.state.isLogin
+      // return false
+    },
+    userInfo () {
+      return (
+        this.$store.state.userInfo || {
+          name: '',
+          pic: '',
+          isVip: '0'
+        }
+      )
+    },
+    ...mapGetters(['pic'])
   },
   methods: {
     logout () {
@@ -158,21 +179,6 @@ export default {
       this.hoverCtrl = setTimeout(() => {
         this.isHover = false
       }, 500)
-    }
-  },
-  computed: {
-    isShow () {
-      return this.$store.state.isLogin
-      // return false
-    },
-    userInfo () {
-      return (
-        this.$store.state.userInfo || {
-          name: '',
-          pic: '',
-          isVip: '0'
-        }
-      )
     }
   }
 }

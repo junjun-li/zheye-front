@@ -16,7 +16,7 @@
             @change="_uploadImgChange">
           上传头像
         </label>
-        <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"/>
+        <img :src="pic"/>
         <span class="loading"></span>
       </div>
     </div>
@@ -24,12 +24,19 @@
 </template>
 
 <script>
-import { uploadImg } from '@/api'
+import {
+  uploadImg,
+  updateUserInfo
+} from '@/api'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'pic-upload',
   data () {
     return {}
+  },
+  computed: {
+    ...mapGetters(['pic'])
   },
   mounted () {},
   methods: {
@@ -38,7 +45,25 @@ export default {
       if (file.length > 0) {
         const formData = new FormData()
         formData.append('file', file[0])
-        const res = await uploadImg(formData)
+        const resUploadImg = await uploadImg(formData)
+        if (resUploadImg.code === 0) {
+          // this.pic = baseUrl + res.data
+          // 更新用户资料
+          updateUserInfo({ pic: resUploadImg.data }).then(res => {
+            if (res.code === 0) {
+              // 修改全局的 store 内的用户基础信息
+              // const user = {
+              //   ...this.$store.state.userInfo
+              // }
+              // user.pic = this.pic
+              // this.$store.commit('setUserInfo', user)
+              this.$store.commit('setUserPic', resUploadImg.data)
+
+              this.$alert('图片上传成功')
+            }
+          })
+          document.getElementById('uploadImg').value = ''
+        }
       }
     }
   }
