@@ -77,3 +77,17 @@ export const updateUsername = (data) => axios.get('/user/updateUsername', {
 
 // 上传图片
 export const uploadImg = (data) => axios.post('/uploadImg', data)
+
+/**
+ * 修改密码接口
+ * @param oldPass 旧密码
+ * @param newPass 新密码
+ * @returns {AxiosPromise}
+ */
+export const resetPassword = ({
+  oldPass,
+  newPass
+}) => axios.post('/user/resetPassword', {
+  oldPass,
+  newPass
+})

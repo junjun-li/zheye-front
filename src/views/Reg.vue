@@ -4,8 +4,7 @@
       class="fly-panel fly-panel-user"
       pad20>
       <div
-        class="layui-tab layui-tab-brief"
-        lay-filter="user">
+        class="layui-tab layui-tab-brief">
         <ul class="layui-tab-title">
           <li>
             <router-link :to="{name: 'login'}">登入</router-link>

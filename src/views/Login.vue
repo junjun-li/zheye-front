@@ -140,7 +140,10 @@
 </template>
 
 <script>
-import { getCaptcha, login } from '@/api'
+import {
+  getCaptcha,
+  login
+} from '@/api'
 import {
   ValidationObserver,
   ValidationProvider

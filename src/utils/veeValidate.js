@@ -45,7 +45,11 @@ localize({
       code: '验证码',
       name: '昵称',
       location: '城市',
-      gender: '性别'
+      gender: '性别',
+      // 修改密码所需
+      oldPass: '当前密码',
+      newPass: '新密码',
+      repass: '密码'
     },
     fields: {
       email: {
