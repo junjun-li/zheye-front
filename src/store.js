@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createLogger from 'vuex/dist/logger'
 import config from '@/config'
+
 const baseUrl = process.env.NODE_ENV === 'development'
   ? config.baseUrl.dev
   : config.baseUrl.pro

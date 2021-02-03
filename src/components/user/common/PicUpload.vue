@@ -36,7 +36,9 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters(['pic'])
+    ...mapGetters({
+      pic: 'pic'
+    })
   },
   mounted () {},
   methods: {

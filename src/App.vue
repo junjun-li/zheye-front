@@ -20,7 +20,7 @@ export default {
 
 <style lang="scss">
 @import "assets/css/global.css";
-
+@import "assets/css/layui-layer/layer.css";
 // 公用样式
 .svg {
   position: relative;
