@@ -4,8 +4,7 @@
       class="fly-panel fly-panel-user"
       pad20>
       <div
-        class="layui-tab layui-tab-brief"
-        lay-filter="user">
+        class="layui-tab layui-tab-brief">
         <ul class="layui-tab-title">
           <li class="layui-this">
             <router-link to="/login">登录</router-link>
@@ -18,7 +17,6 @@
           id="LAY_ucm"
           class="layui-form layui-tab-content"
           style="padding: 20px 0;">
-          <!-- // eslint-disable-next-line vue/no-unused-vars -->
           <validation-observer
             ref="observer"
             v-slot="{validate}">
@@ -121,12 +119,10 @@
                     <a
                       class="iconfont icon-qq"
                       href
-                      onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})"
                       title="QQ登入"></a>
                     <a
                       class="iconfont icon-weibo"
                       href
-                      onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})"
                       title="微博登入"></a>
                   </div>
                 </form>

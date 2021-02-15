@@ -78,6 +78,23 @@ export const updateUsername = (data) => axios.get('/user/updateUsername', {
 // 上传图片
 export const uploadImg = (data) => axios.post('/uploadImg', data)
 
+// 发贴接口
+export const addPost = ({
+  title,
+  catalog,
+  content,
+  fav,
+  code,
+  sid
+}) => axios.post('/add', {
+  title,
+  catalog,
+  content,
+  fav,
+  code,
+  sid
+})
+
 /**
  * 修改密码接口
  * @param oldPass 旧密码

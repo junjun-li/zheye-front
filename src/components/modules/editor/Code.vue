@@ -2,7 +2,7 @@
   <transition name="fade">
     <div
       v-show="isShow"
-      class="layui-layer layui-layer-page layui-layer-prompt edit-content">
+      class="layui-layer-page layui-layer-prompt edit-content">
       <div class="layui-layer-title">请贴入代码或任意文本</div>
       <div class="layui-layer-content">
         <textarea

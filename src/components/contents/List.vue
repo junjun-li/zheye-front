@@ -158,12 +158,12 @@ export default {
     }
   },
   watch: {
-    current (newval, oldval) {
-      // console.log('current: ' + oldval + ',' + newval)
+    current (newVal, oldVal) {
+      // console.log('current: ' + oldVal + ',' + newVal)
       // 去兼听current标签是否有变化，如果有变化，则需要重新进行查询
       this.init()
     },
-    '$route' (newval, oldval) {
+    '$route' (newVal, oldVal) {
       const catalog = this.$route.params.catalog
       if (typeof catalog !== 'undefined' && catalog !== '') {
         this.catalog = catalog

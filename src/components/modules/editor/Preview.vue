@@ -3,7 +3,7 @@
     <div
       v-show="isShow"
       id="preview"
-      class="layui-layer layui-layer-page layui-layer-prompt edit-content">
+      class="layui-layer-page layui-layer-prompt edit-content">
       <div class="layui-layer-title">预览</div>
       <div class="layui-layer-content">
         <div
@@ -23,15 +23,15 @@ import { escapeHtml } from '@/utils/escapeHtml'
 
 export default {
   name: 'Preview',
-  props: ['isShow', 'content'],
-  watch: {
-    // isShow (newVal, oldVal) {
-    //   if (newVal) {
-    //     this.$store.commit('setHide', true)
-    //   } else {
-    //     this.$store.commit('setHide', false)
-    //   }
-    // }
+  props: {
+    isShow: {
+      type: Boolean,
+      default: false
+    },
+    content: {
+      type: String,
+      default: ''
+    }
   },
   computed: {
     replaceContent () {

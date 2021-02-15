@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="layui-layer layui-layer-page layui-layer-prompt edit-content" v-show="isShow">
+    <div class="layui-layer-page layui-layer-prompt edit-content" v-show="isShow">
       <div class="layui-layer-title">请输入引用内容</div>
       <div class="layui-layer-content">
         <textarea
@@ -37,16 +37,16 @@ export default {
   },
   methods: {
     submit () {
-      // if (this.quote === '') {
-      //   document.getElementById('inputItem').focus()
-      //   this.$pop('shake', '请输入引用内容')
-      //   return
-      // }
-      // this.$emit('addEvent')
-      // setTimeout(() => {
-      //   this.quote = ''
-      //   this.$emit('closeEvent')
-      // }, 0)
+      if (this.quote === '') {
+        document.getElementById('quoteInput').focus()
+        this.$pop('shake', '请输入引用内容')
+        return
+      }
+      this.$emit('addEvent', this.quote)
+      setTimeout(() => {
+        this.quote = ''
+        this.$emit('closeEvent')
+      }, 0)
     },
     cancel () {
       this.quote = ''

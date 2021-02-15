@@ -2,7 +2,7 @@
   <transition name="fade">
     <div
       v-show="isShow"
-      class="layui-layer layui-layer-tips layui-edit-face edit-content">
+      class="layui-layer-tips layui-edit-face edit-content">
       <div class="layui-layer-content">
         <ul class="layui-clear">
           <li

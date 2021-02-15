@@ -5,10 +5,6 @@
         <div
           ref="icons"
           class="layui-unselect fly-edit">
-          <!-- 表情 -->
-          <!--
-            @click="faceStatus = !faceStatus"
-          -->
           <span @click="choose(0)">
             <i class="iconfont icon-yxj-expression"></i>
           </span>
@@ -81,6 +77,7 @@ import Preview from '@/components/modules/editor/Preview'
 
 export default {
   name: 'Editor',
+  props: ['initContent'],
   components: {
     Preview,
     Code,
@@ -96,10 +93,19 @@ export default {
       isActive: undefined,
       codeWidth: 400,
       codeHeight: 200,
-      content: ' face[怒] face[微笑]',
+      content: ' face[怒] face[微笑]这是测试的内容',
       // 光标的位置
       pos: ''
     }
+  },
+  watch: {
+    initContent (newVal, oldVal) {
+      this.content = newVal
+    }
+  },
+  updated () {
+    this.$emit('changeContent', this.content)
+    // console.log('content' + this.content)
   },
   mounted () {
     this.$nextTick(() => {
@@ -247,9 +253,13 @@ export default {
   top: 45px;
   left: 0;
   z-index: 100;
+  background: #fff;
 }
 .icon-emwdaima {
   position: relative;
   top: 2px;
+}
+.layui-layer-prompt {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 </style>

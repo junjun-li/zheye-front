@@ -2,7 +2,7 @@
   <transition name="fade">
     <div
       v-show="isShow"
-      class="layui-layer layui-layer-page layui-layer-border edit-content">
+      class="layui-layer-page layui-layer-border edit-content">
       <div class="layui-layer-title">插入图片</div>
       <div class="layui-layer-content">
         <ul class="layui-form layui-form-pane">
