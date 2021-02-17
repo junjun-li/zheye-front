@@ -31,7 +31,7 @@ export default {
           content: '',
           created: '2019-10-01 01:00:00',
           catalog: 'ask',
-          fav: 40,
+          integral: 40,
           isEnd: 0,
           reads: 10,
           answer: 0,

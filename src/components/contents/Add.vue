@@ -179,7 +179,7 @@
 
 <script>
 import CodeMix from '@/mixin/code'
-import Editor from '@/components/modules/editor/Index'
+import Editor from '@/components/modules/editor'
 import { addPost } from '@/api'
 
 export default {
@@ -218,7 +218,7 @@ export default {
       ],
       favList: [20, 30, 50, 60, 80],
       title: '测试标题',
-      content: ' face[怒] face[微笑]这是测试的内容'
+      content: ''
     }
   },
   mounted () {
@@ -256,7 +256,7 @@ export default {
         title: this.title,
         catalog: this.catalogs[this.catalogIndex].value,
         content: this.content,
-        fav: this.favList[this.favIndex],
+        integral: this.favList[this.favIndex],
         code: this.code,
         sid: this.$store.state.sid
       }).then((res) => {

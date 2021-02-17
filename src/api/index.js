@@ -56,6 +56,25 @@ export const getLinks = () => axios.get('/getLinks')
 // 用户签到
 export const userSign = () => axios.get('/user/sign')
 
+// 获取文章详情
+export const getPostDetail = (id) => axios.get(`/getPostDetail?id=${id}`)
+
+// 获取评论列表
+export const getComments = ({
+  id,
+  page,
+  pageSize
+}) => axios.get(
+  `/getComments`,
+  {
+    params: {
+      id,
+      page,
+      pageSize
+    }
+  }
+)
+
 // 更新用户基本资料
 export const updateUserInfo = (data) => axios.post('/user/basic', data)
 
@@ -83,14 +102,14 @@ export const addPost = ({
   title,
   catalog,
   content,
-  fav,
+  integral,
   code,
   sid
 }) => axios.post('/add', {
   title,
   catalog,
   content,
-  fav,
+  integral,
   code,
   sid
 })
@@ -107,4 +126,27 @@ export const resetPassword = ({
 }) => axios.post('/user/resetPassword', {
   oldPass,
   newPass
+})
+
+// 发表评论
+export const addComment = ({
+  content,
+  code,
+  sid,
+  tid
+}) => axios.post('/addComment', {
+  content,
+  code,
+  sid,
+  tid
+})
+
+export const setCommentBest = ({
+  cid,
+  tid
+}) => axios.get('/setCommentBest', {
+  params: {
+    cid,
+    tid
+  }
 })

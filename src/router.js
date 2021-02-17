@@ -29,6 +29,7 @@ const Settings = () => import(/* webpackChunkName: 'settings' */ '@/components/u
 const NoFound = () => import(/* webpackChunkName: 'notfound' */ '@/views/NotFound.vue')
 const Confirm = () => import(/* webpackChunkName: 'confirm' */ '@/views/Confirm.vue')
 const Add = () => import(/* webpackChunkName: 'add' */ '@/components/contents/Add')
+const Detail = () => import(/* webpackChunkName: 'detail' */ '@/components/contents/Detail')
 
 const router = new Router({
   routes: [
@@ -52,6 +53,11 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/detail',
+      name: 'detail',
+      component: Detail
     },
     {
       path: '/add',

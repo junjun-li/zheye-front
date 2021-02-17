@@ -23,6 +23,7 @@ module.exports = {
     // 没有使用的组件, 我非常清楚, 我是否会使用该组件
     'vue/no-unused-components': 'off',
     // 能否使用return, 我非常清楚
-    'no-useless-return': 'off'
+    'no-useless-return': 'off',
+    'vue/no-mutating-props': 'off'
   }
 }

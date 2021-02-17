@@ -93,7 +93,7 @@ export default {
       isActive: undefined,
       codeWidth: 400,
       codeHeight: 200,
-      content: ' face[怒] face[微笑]这是测试的内容',
+      content: '',
       // 光标的位置
       pos: ''
     }

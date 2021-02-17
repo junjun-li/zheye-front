@@ -14,7 +14,7 @@
         </a>
         <h2>
           <a class="layui-badge">{{ item.catalog }}</a>
-          <a href="jie/detail.html">{{ item.title }}</a>
+          <router-link :to="`/detail?id=${item._id}`">{{ item.title }}</router-link>
         </h2>
         <div class="fly-list-info">
           <a
@@ -28,13 +28,13 @@
             >{{ 'VIP' + item.uid.isVip }}
             </i>
           </a>
-          <span>{{ item.created | moment }}</span>
+          <span>{{ item.createdTime | moment }}</span>
 
           <span
             class="fly-list-kiss layui-hide-xs"
             title="悬赏飞吻">
             <i class="iconfont icon-kiss"></i>
-            {{ item.fav }}
+            {{ item.integral }}
           </span>
           <span
             v-show="item.status === '1'"
