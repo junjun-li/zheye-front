@@ -29,6 +29,7 @@ const Settings = () => import(/* webpackChunkName: 'settings' */ '@/components/u
 const NoFound = () => import(/* webpackChunkName: 'notfound' */ '@/views/NotFound.vue')
 const Confirm = () => import(/* webpackChunkName: 'confirm' */ '@/views/Confirm.vue')
 const Add = () => import(/* webpackChunkName: 'add' */ '@/components/contents/Add')
+const Edit = () => import(/* webpackChunkName: 'edit' */ '@/components/contents/Edit')
 const Detail = () => import(/* webpackChunkName: 'detail' */ '@/components/contents/Detail')
 
 const router = new Router({
@@ -63,6 +64,11 @@ const router = new Router({
       path: '/add',
       name: 'add',
       component: Add
+    },
+    {
+      path: '/edit/:id',
+      name: 'edit',
+      component: Edit
     },
     {
       path: '/reg',

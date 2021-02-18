@@ -112,16 +112,19 @@
               <span style="padding-right: 10px; color: #FF7200">悬赏：{{ page.integral }}</span>
             </div>
           </div>
-          <div class="layui-btn-container fly-detail-admin pt1">
-            <a
-              class="layui-btn layui-btn-sm jie-admin"
-              href>编辑
-            </a>
-            <a
-              class="layui-btn layui-btn-sm jie-admin-collect"
-              href>收藏
-            </a>
-          </div>
+          <!--<div class="layui-btn-container fly-detail-admin pt1">-->
+          <!--  <router-link-->
+          <!--    :to="{-->
+          <!--      name: 'edit',-->
+          <!--      params: { id: $route.query.id }-->
+          <!--    }"-->
+          <!--    class="layui-btn layui-btn-sm jie-admin">编辑-->
+          <!--  </router-link>-->
+          <!--  <a-->
+          <!--    class="layui-btn layui-btn-sm jie-admin-collect"-->
+          <!--    href>收藏-->
+          <!--  </a>-->
+          <!--</div>-->
           <div
             class="detail-body photos"
             v-html="content"></div>
@@ -187,14 +190,15 @@
                 <span
                   :class="{'zanok' :item.handed === '1'}"
                   class="jieda-zan"
-                  type="zan">
+                  type="zan"
+                  @click="_setLink(item)">
                   <i class="iconfont icon-zan"></i>
                   <em>{{ item.hands }}</em>
                 </span>
-                <span type="reply">
-                  <i class="iconfont icon-svgmoban53"></i>
-                  回复
-                </span>
+                <!--<span type="reply">-->
+                <!--  <i class="iconfont icon-svgmoban53"></i>-->
+                <!--  回复-->
+                <!--</span>-->
                 <div class="jieda-admin">
                   <!--<span-->
                   <!--  v-show="page.isEnd ==='0' && item.uid._id === userInfo._id"-->
@@ -291,7 +295,8 @@ import {
   addComment,
   getComments,
   getPostDetail,
-  setCommentBest
+  setCommentBest,
+  setLink
 } from '@/api'
 import HotList from '@/components/sidebar/HotList'
 import Ads from '@/components/sidebar/Ads'
@@ -355,6 +360,16 @@ export default {
     this._getComments()
   },
   methods: {
+    _setLink (item) {
+      setLink({ cid: item._id }).then((res) => {
+        if (res.code === 0) {
+          this.$pop('', '点赞成功')
+          this._getComments()
+        } else {
+          this.$pop('shake', res.msg)
+        }
+      })
+    },
     editComment (item) {
       this.editInfo.content = item.content
       scrollToElem('.layui-input-block', 500, -65)
@@ -417,8 +432,10 @@ export default {
           sid: '',
           tid: this.$route.query.id
         }
+        this.code = ''
         this._getCaptcha()
         this._getComments()
+        this._getPostDetail()
       } else {
         this.$pop('shake', res.msg ? res.msg : '错误, 请联系管理员')
       }

@@ -114,6 +114,23 @@ export const addPost = ({
   sid
 })
 
+// 发贴接口
+export const updatePost = ({
+  title,
+  catalog,
+  content,
+  integral,
+  code,
+  sid
+}) => axios.post('/updatePost', {
+  title,
+  catalog,
+  content,
+  integral,
+  code,
+  sid
+})
+
 /**
  * 修改密码接口
  * @param oldPass 旧密码
@@ -141,6 +158,7 @@ export const addComment = ({
   tid
 })
 
+// 采纳
 export const setCommentBest = ({
   cid,
   tid
@@ -148,5 +166,12 @@ export const setCommentBest = ({
   params: {
     cid,
     tid
+  }
+})
+
+// 设置点赞
+export const setLink = ({ cid }) => axios.get('/setLink', {
+  params: {
+    cid
   }
 })

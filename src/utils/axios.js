@@ -36,7 +36,9 @@ class HTTPRequest {
         // executor 函数接收一个 cancel 函数作为参数
         this.pending[key] = c
       })
-      config.headers.Authorization = 'Bearer ' + token
+      if (token) {
+        config.headers.Authorization = 'Bearer ' + token
+      }
       return config
     }, (err) => {
       // 对请求错误做些什么
