@@ -40,4 +40,13 @@ export default {
     justify-content: center;
   }
 }
+
+.fade-leave-active {
+  animation: bounceOut 0.3s;
+}
+
+.fade-enter-active,
+.fade-enter-to {
+  animation: bounceIn 0.3s;
+}
 </style>

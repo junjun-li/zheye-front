@@ -24,6 +24,7 @@ module.exports = {
     'vue/no-unused-components': 'off',
     // 能否使用return, 我非常清楚
     'no-useless-return': 'off',
-    'vue/no-mutating-props': 'off'
+    'vue/no-mutating-props': 'off',
+    'no-trailing-spaces': 0
   }
 }

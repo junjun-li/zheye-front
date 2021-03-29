@@ -1,5 +1,6 @@
 import axios from 'axios'
-
+import router from '@/router'
+window.router = router
 const CancelToken = axios.CancelToken
 
 class HTTPRequest {
@@ -38,7 +39,10 @@ class HTTPRequest {
       })
       if (token) {
         config.headers.Authorization = 'Bearer ' + token
-      }
+      } 
+      // else {
+      //   router.push('/login')
+      // }
       return config
     }, (err) => {
       // 对请求错误做些什么

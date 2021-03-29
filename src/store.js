@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createLogger from 'vuex/dist/logger'
 import config from '@/config'
+import WebsocketClient from '@/utils/websocket'
 
 const baseUrl = process.env.NODE_ENV === 'development'
   ? config.baseUrl.dev
@@ -15,7 +16,9 @@ export default new Vuex.Store({
     sid: '',
     isLogin: false,
     token: '',
-    userInfo: {}
+    userInfo: {},
+    ws: null,
+    num: 0
   },
   mutations: {
     setSid (state, value) {
@@ -44,9 +47,23 @@ export default new Vuex.Store({
     // 设置isLogin的状态
     setIsLogin (state, value) {
       state.isLogin = value
+    },
+    // 初始化websocket
+    initWebsocket (state, config) {
+      const ws = new WebsocketClient(config)
+      ws.init()
+      // state.ws = new WebsocketClient(config)
+      // state.ws.init()
+    },
+    setMessage (state, num) {
+      state.num = num
     }
   },
-  actions: {},
+  actions: {
+    message ({ commit }, message) {
+      commit('setMessage', message)
+    }
+  },
   getters: {
     count: state => state.userInfo && state.userInfo.count
       ? state.userInfo.count

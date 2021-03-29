@@ -117,22 +117,42 @@
               </dd>
             </dl>
           </li>
+          <div
+            v-show="num.message && num.message !== 0"
+            class="fly-nav-msg">
+            {{ num.message }}
+          </div>
+          <transition name="fade">
+            <div
+              v-show="hasMsg"
+              class="layui-layer-tips">
+              <div class="layui-layer-content">
+                您有{{ num.message }}条未读消息
+                <i class="layui-layer-TipsG layui-layer-TipsB"></i>
+              </div>
+            </div>
+          </transition>
         </template>
       </ul>
     </div>
+
   </div>
 </template>
 
 <script>
 import store from '@/store'
-import { mapGetters } from 'vuex'
+import {
+  mapGetters,
+  mapState
+} from 'vuex'
 
 export default {
   name: 'Header',
   data () {
     return {
       isHover: false,
-      hoverCtrl: {}
+      hoverCtrl: {},
+      hasMsg: false
       // @/assets/img/avatar.jpeg
       // pic: (this.$store.state.userInfo && this.$store.state.userInfo.pic)
       //   ? baseUrl + this.$store.state.userInfo.pic
@@ -140,6 +160,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['num']),
     isShow () {
       return this.$store.state.isLogin
       // return false
@@ -180,6 +201,17 @@ export default {
         this.isHover = false
       }, 500)
     }
+  },
+  watch: {
+    num (newVal, oldVal) {
+      console.log(newVal)
+      if (newVal.event && newVal !== oldVal) {
+        this.hasMsg = true
+        setTimeout(() => {
+          this.hasMsg = false
+        }, 2000)
+      }
+    }
   }
 }
 </script>
@@ -191,5 +223,20 @@ export default {
   left: -15px;
   top: -10px;
   margin-left: 15px;
+}
+
+.fly-nav-msg {
+  top: 33px;
+  .layui-layer-tips {
+    position: absolute;
+    white-space: nowrap;
+    left: -8px;
+    top: 30px;
+    z-index: 2000;
+  }
+}
+
+.layui-layer-content {
+  left: -30px;
 }
 </style>

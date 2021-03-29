@@ -175,3 +175,14 @@ export const setLink = ({ cid }) => axios.get('/setLink', {
     cid
   }
 })
+
+// 获取历史消息
+export const getHistoryMsg = ({
+  page,
+  pageSize
+}) => axios.get('/user/getHistoryMsg', {
+  params: {
+    page,
+    pageSize
+  }
+})

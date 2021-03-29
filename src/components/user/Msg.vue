@@ -57,8 +57,34 @@
 </template>
 
 <script>
+import { getHistoryMsg } from '@/api'
+import { mapState } from 'vuex'
+
 export default {
-  name: 'user-msg'
+  name: 'user-msg',
+  data () {
+    return {
+      params: {
+        page: 1,
+        pageSize: 10
+      },
+      ws: {}
+    }
+  },
+  computed: {
+    ...mapState({
+      token: 'token'
+    })
+  },
+  created () {
+    this._getHistoryMsg()
+  },
+  methods: {
+    async _getHistoryMsg () {
+      const res = await getHistoryMsg(this.params)
+      console.log(res)
+    }
+  }
 }
 </script>
 

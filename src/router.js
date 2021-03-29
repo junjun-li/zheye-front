@@ -192,6 +192,9 @@ router.beforeEach((to, from, next) => {
       store.commit('setToken', token)
       store.commit('setUserInfo', userInfo)
       store.commit('setIsLogin', true)
+      if (!store.state.ws) {
+        store.commit('initWebsocket', {})
+      }
     } else {
       // 如果token过期了, 直接删除localhost里面的数据就好了
       localStorage.clear()
